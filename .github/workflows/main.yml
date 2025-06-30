@@ -39,7 +39,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+      - name: Print all files 
+        run: ls -R
       - name: Deploy to Kubernetes
         run: |
           kubectl set image -f Pipeline/deployment.yaml webapp=${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
