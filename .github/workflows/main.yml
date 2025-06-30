@@ -43,5 +43,5 @@ jobs:
         run: ls -R
       - name: Deploy to Kubernetes
         run: |
-          kubectl set image -f testwebapp/Pipeline/buildanddeploy.yml webapp=${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-          kubectl apply -f testwebapp/Pipeline/buildanddeploy.yml
+          kubectl set image -f testwebapp/Pipeline/deployment.yml webapp=${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          kubectl apply -f testwebapp/Pipeline/deployment.yml
