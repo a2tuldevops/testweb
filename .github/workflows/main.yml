@@ -40,13 +40,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v4
-
-      - name: Set up Kubeconfig
-        run: |
-          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
-
       - name: Deploy to Kubernetes
         run: |
           kubectl set image -f k8s/deployment.yaml webapp=${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
