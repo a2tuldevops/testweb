@@ -24,7 +24,7 @@ jobs:
          --password-stdin
       - name: Build Tag and push Docker Image
         env:
-          IMAGE_NAME: trialo5lmkv.jfrog.io/dockerimage-docker/jfrog-docker-example-image:${{ github.run_number }}
+          IMAGE_NAME: trialo5lmkv.jfrog.io/dockerimage-docker/testwebapp:${{ github.run_number }}
         run: |
           docker build -t $IMAGE_NAME -f testwebapp/Dockerfile testwebapp
           docker push $IMAGE_NAME
