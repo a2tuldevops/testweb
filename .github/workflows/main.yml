@@ -26,8 +26,8 @@ jobs:
         env:
           IMAGE_NAME: trialo5lmkv.jfrog.io/dockerimage-docker/jfrog-docker-example-image:${{ github.run_number }}
         run: |
-          jf docker build -t $IMAGE_NAME -f testwebapp/Dockerfile testwebapp
-          jf docker push $IMAGE_NAME
+          docker build -t $IMAGE_NAME -f testwebapp/Dockerfile testwebapp
+          docker push $IMAGE_NAME
           
       - name: Publish Build info With JFrog CLI
         env:
