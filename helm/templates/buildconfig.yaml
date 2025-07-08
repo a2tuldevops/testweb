@@ -11,7 +11,7 @@ spec:
       kind: {{ .Values.buildConfigCreation.kind }}
       name: {{ .Values.buildConfigCreation.repository }}:{{ .Values.buildConfigCreation.tag }}
     pushSecret:
-      name: {{ .Values.pullSecretName }}
+      name: {{ .Values.buildConfigCreation.jfrogpullSecretName }}
   serviceAccount: builder
   resources: 
     limits:
@@ -26,7 +26,7 @@ spec:
     type: Docker
     dockerStrategy: 
       pullSecret:
-        name: artifactory-pullsecret
+        name: {{ .Values.buildConfigCreation.openshifttogithubsecret }}
       noCache: true
       forcePull: true
       volumes:
@@ -36,7 +36,7 @@ spec:
           source:
             type: Secret
             secret:
-              secretName: jfrog-services-secret
+              secretName: {{ .Values.buildConfigCreation.jfrogpullSecretName }}
   source:
     type: Git
     git:
