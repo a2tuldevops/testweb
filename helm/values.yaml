@@ -27,6 +27,7 @@ resources:
   memory: "512Mi"
 
 buildConfiguration:
+  kind: ImageStreamTag
   gitUri: https://github.com/a2tuldevops/testweb.git
   gitSecret: github-access-secret
   contextDir: testwebapp
