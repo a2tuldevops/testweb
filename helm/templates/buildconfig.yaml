@@ -1,1 +1,50 @@
-
+{{- if eq .Values.environment "d" }}
+kind: Build
+apiVersion: build.openshift.io/v1
+metadata:
+  namespace: {{ .Values.namespace }}-{{ .Values.env }}
+  name: {{ .Values.appName }}-buildconfig
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: {{ .Values.buildConfigCreation.repository }}:{{ .Values.buildConfigCreation.tag }}
+    pushSecret:
+      name: {{ .Values.pullSecretName }}
+  serviceAccount: builder
+  resources: 
+    limits:
+      cpu: {{ .Values.resources.cpu }}
+      memory: {{ .Values.resources.memory }}
+    requests:
+      cpu: {{ .Values.resources.cpu }}
+      memory: {{ .Values.resources.memory }} 
+  successfulBuildsHistoryLimit: 2
+  failedBuildsHistoryLimit: 2
+  strategy:
+    type: Docker
+    dockerStrategy: 
+      pullSecret:
+        name: artifactory-pullsecret
+      noCache: true
+      forcePull: true
+      volumes:
+        - name: jfrog-secret-volume
+          mounts: 
+            - destinationPath: /run/secrets/jfrog
+          source:
+            type: Secret
+            secret:
+              secretName: jfrog-services-secret
+  source:
+    type: Git
+    git:
+      uri: '{{ .Values.buildConfiguration.gitUri }}'
+    contextDir: /testwebapp
+    sourceSecret:
+      name: {{ .Values.buildConfiguration.gitSecret }}
+  triggers:
+    - type: ConfigChange
+  runPolicy: Serial
+{{- end }}
