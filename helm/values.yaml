@@ -11,4 +11,27 @@ service:
 
 containerPort: 80
 
-resources: {}
+environment: d
+namespace: vickyams21-dev
+env: dev
+appName: testweb
+
+buildConfigCreation:
+  repository: sample-repo
+  tag: v1.0.0
+
+pullSecretName: jfrog-push-secret
+
+resources:
+  cpu: "500m"
+  memory: "512Mi"
+
+buildConfiguration:
+  gitUri: https://github.com/a2tuldevops/testweb.git
+  gitSecret: github-access-secret
+  contextDir: testwebapp
+  triggers: ConfigChange
+  runPolicy: Serial
+
+
+
