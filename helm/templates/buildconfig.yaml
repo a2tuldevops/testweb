@@ -2,7 +2,7 @@
 kind: Build
 apiVersion: build.openshift.io/v1
 metadata:
-  namespace: {{ .Values.namespace }}-{{ .Values.env }}
+  namespace: {{ .Values.namespace }}
   name: {{ .Values.appName }}-buildconfig
 spec:
   nodeSelector: null
