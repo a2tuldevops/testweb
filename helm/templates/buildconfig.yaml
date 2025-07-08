@@ -8,7 +8,7 @@ spec:
   nodeSelector: null
   output:
     to:
-      kind: ImageStreamTag
+      kind: {{ .Values.buildConfigCreation.kind }}
       name: {{ .Values.buildConfigCreation.repository }}:{{ .Values.buildConfigCreation.tag }}
     pushSecret:
       name: {{ .Values.pullSecretName }}
@@ -41,10 +41,10 @@ spec:
     type: Git
     git:
       uri: '{{ .Values.buildConfiguration.gitUri }}'
-    contextDir: /testwebapp
+    contextDir: /{{ .Values.buildConfiguration.gitUri }}
     sourceSecret:
-      name: {{ .Values.buildConfiguration.gitSecret }}
+      name: {{ .Values.buildConfiguration.contextDir }}
   triggers:
-    - type: ConfigChange
-  runPolicy: Serial
+    - type: {{ .Values.buildConfiguration.ConfigChange }}
+  runPolicy: {{ .Values.buildConfiguration.Serial }}
 {{- end }}
